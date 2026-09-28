@@ -941,7 +941,11 @@
     ["buy","買"],["sell","賣"],["open","打開"],["close","關閉"],["love","愛"],["like","喜歡"],
     ["money","錢"],["bank","銀行"],["hospital","醫院"],["doctor","醫生"],["nurse","護士"],["police","警察"],
     ["restaurant","餐廳"],["hotel","飯店"],["airport","機場"],["ticket","票"],["map","地圖"],["key","鑰匙"],
-    ["shoes","鞋子"],["shirt","衣服"],["hat","帽子"],["glasses","眼鏡"],["watch","手錶"],["gift","禮物"]
+    ["shoes","鞋子"],["shirt","衣服"],["hat","帽子"],["glasses","眼鏡"],["watch","手錶"],["gift","禮物"],
+    ["scorching","酷熱的"],["sunscreen","防曬乳"],["bloom","開花"],["flip-flops","夾腳拖"],["souvenir","紀念品"],
+    ["worth it","值得"],["fatigue","疲勞"],["avoid","避免"],["wrist","手腕"],["swelling","腫脹"],
+    ["bitter","苦的"],["bacteria","細菌"],["electricity","電"],["notice","注意到"],["navel","肚臍"],
+    ["digestion","消化"],["ignore","忽略"],["influenza","流感"],["elbow","手肘"],["recover","康復"]
   ];
 
   var ROUND_SIZE = 6;
@@ -1000,60 +1004,64 @@
   ];
   var GRAMMAR = [
     {
-      topic: "現在簡單式",
-      rule: "描述習慣、事實或固定行程。第三人稱單數(he/she/it)動詞要加 -s 或 -es。",
-      examples: ["She works at a hospital.", "The sun rises in the east.", "I usually get up at seven."]
+      topic: "過去簡單式(肯定句)",
+      rule: "描述過去發生的動作,肯定句直接用動詞的過去式;不要用「did + 原形動詞」,did 只用在疑問句和否定句。",
+      examples: ["I drove the car yesterday.", "I went to the dentist last month.", "I felt comfortable after drinking cold water."]
     },
     {
-      topic: "現在進行式",
-      rule: "描述現在正在發生的動作,構造是 am/is/are + 動詞-ing。",
-      examples: ["I am reading a book right now.", "They are playing basketball."]
+      topic: "可數名詞前的冠詞 a / an",
+      rule: "描述疾病、疼痛等可數名詞單數時,前面要加 a 或 an;字首發母音的字用 an,其他用 a。",
+      examples: ["He has a headache.", "I have an earache.", "I have a cold."]
     },
     {
-      topic: "過去簡單式",
-      rule: "描述過去已經發生、結束的動作,規則動詞加 -ed,不規則動詞要背它的過去式。",
-      examples: ["I visited my grandmother last week.", "She went to Japan in 2023."]
+      topic: "主詞動詞一致",
+      rule: "主詞是第三人稱單數(he/she/it/my son...)時,現在簡單式動詞要加 -s 或 -es;主詞是複數(eyes, they...)則不加。",
+      examples: ["My son has a cough.", "When I run, my heart beats faster.", "I think eyes are the most important."]
     },
     {
-      topic: "現在完成式",
-      rule: "描述過去發生、但跟現在有關聯的動作,構造是 have/has + 過去分詞(p.p.)。",
-      examples: ["I have finished my homework.", "He has lived here for ten years."]
+      topic: "動名詞(V-ing)的用法",
+      rule: "「go + 動詞-ing」表示從事某項活動;動名詞也可以放在句首當主詞,或放在介系詞後面。",
+      examples: ["I go swimming every summer.", "Taking a taxi late at night is expensive.", "I use it for digesting food."]
     },
     {
-      topic: "未來式(will / be going to)",
-      rule: "will 常用於當下決定或預測;be going to 常用於事先計畫好的事。",
-      examples: ["I think it will rain tomorrow.", "We are going to visit Kyoto next month."]
+      topic: "-ing / -ed 形容詞",
+      rule: "-ed 形容詞用來描述人的感受;-ing 形容詞用來描述造成這種感受的事物或事情。",
+      examples: ["I felt very tired after work.", "The movie was so boring that I fell asleep.", "It was a very tiring day."]
     },
     {
-      topic: "比較級與最高級",
-      rule: "單音節形容詞字尾加 -er/-est;較長的形容詞前面加 more/most。",
-      examples: ["This bag is cheaper than that one.", "She is the most careful driver I know."]
+      topic: "疑問句語序",
+      rule: "疑問句的順序是「WH字 + do/does/did + 主詞 + 原形動詞」,不能漏掉 do/does/did,原形動詞也不能再加 -s。",
+      examples: ["What do you do in the morning?", "Does your tooth hurt?", "When did you go there?"]
     },
     {
-      topic: "時間介系詞 in / on / at",
-      rule: "in 用於較長的時間(月、年、季節);on 用於日期、星期幾;at 用於精確的時間點。",
-      examples: ["I was born in 2005.", "The meeting is on Monday.", "School starts at 8 a.m."]
+      topic: "常用介系詞搭配",
+      rule: "有些動詞和名詞有固定搭配的介系詞,要整組記起來,不能只照中文語順去翻譯。",
+      examples: ["I stayed in a hotel on my last trip.", "Close your eyes for five minutes.", "Don't pass it to other people."]
     },
     {
-      topic: "關係代名詞 who / which / that",
-      rule: "who 用來指人;which 用來指事物;that 人或事物都可以用,常用在限定用法中。",
-      examples: ["The man who called you is my teacher.", "The book which I bought is very interesting."]
+      topic: "比較級",
+      rule: "單音節形容詞的比較級字尾加 -er;比較的兩者要對等(例如要說 Taiwan's bus,而不是只講 Taiwan)。",
+      examples: ["Japan's bus is shorter than Taiwan's.", "This bag is cheaper than that one."]
     }
   ];
 
   var GRAMMAR_QUIZ = [
-    { topic: "現在簡單式", sentence: "He ___ to school every day.", choices: ["go", "goes", "going", "went"], answer: "goes", explain: "he 是第三人稱單數,動詞要加 -es。" },
-    { topic: "現在簡單式", sentence: "Water ___ at 100°C.", choices: ["boil", "boils", "boiling", "boiled"], answer: "boils", explain: "描述科學事實,用現在簡單式,第三人稱單數加 -s。" },
-    { topic: "現在進行式", sentence: "Please be quiet. The baby ___ .", choices: ["sleeps", "sleep", "is sleeping", "slept"], answer: "is sleeping", explain: "此刻正在發生的動作,用 is + V-ing。" },
-    { topic: "過去簡單式", sentence: "I ___ to the beach last summer.", choices: ["go", "goes", "went", "have gone"], answer: "went", explain: "last summer 是明確的過去時間點,用過去簡單式(go 的過去式是 went)。" },
-    { topic: "過去簡單式", sentence: "She ___ her homework before dinner yesterday.", choices: ["finish", "finishes", "finished", "has finished"], answer: "finished", explain: "yesterday 表示過去,規則動詞加 -ed。" },
-    { topic: "現在完成式", sentence: "I ___ this movie three times.", choices: ["watch", "watched", "have watched", "am watching"], answer: "have watched", explain: "強調從過去到現在累積的經驗,用 have + 過去分詞。" },
-    { topic: "現在完成式", sentence: "He ___ in Taipei since 2015.", choices: ["lives", "lived", "has lived", "is living"], answer: "has lived", explain: "since + 過去時間點,表示從那時持續到現在,用現在完成式。" },
-    { topic: "未來式(will / be going to)", sentence: "Look at those clouds! It ___ rain.", choices: ["will", "is going to", "would", "was going to"], answer: "is going to", explain: "根據現在的跡象做預測,用 be going to。" },
-    { topic: "比較級與最高級", sentence: "This question is ___ than the last one.", choices: ["difficult", "difficulter", "more difficult", "most difficult"], answer: "more difficult", explain: "difficult 是較長的形容詞,比較級前面加 more。" },
-    { topic: "時間介系詞 in / on / at", sentence: "We usually have a big dinner ___ Chinese New Year's Eve.", choices: ["in", "on", "at", "of"], answer: "on", explain: "指特定的一天,用 on。" },
-    { topic: "關係代名詞 who / which / that", sentence: "The woman ___ is standing over there is my aunt.", choices: ["which", "who", "whose", "what"], answer: "who", explain: "先行詞是人(The woman),關係代名詞用 who。" },
-    { topic: "關係代名詞 who / which / that", sentence: "This is the movie ___ won three awards.", choices: ["who", "which", "whom", "whose"], answer: "which", explain: "先行詞是事物(the movie),關係代名詞用 which。" }
+    { topic: "過去簡單式(肯定句)", sentence: "Yesterday, I ___ the car to Taipei.", choices: ["did drive", "drove", "drive", "driving"], answer: "drove", explain: "過去式肯定句直接用動詞過去式,不需要加 did(did 用於疑問句/否定句)。" },
+    { topic: "過去簡單式(肯定句)", sentence: "Last month, I ___ to the dentist.", choices: ["go", "goes", "went", "have go"], answer: "went", explain: "go 的過去式是 went,描述過去發生的事用過去簡單式。" },
+    { topic: "可數名詞前的冠詞 a / an", sentence: "He has ___ headache this morning.", choices: ["a", "an", "the", "—"], answer: "a", explain: "headache 是可數名詞單數,前面需要加 a(子音開頭的字用 a)。" },
+    { topic: "可數名詞前的冠詞 a / an", sentence: "I have ___ earache.", choices: ["a", "an", "the", "some"], answer: "an", explain: "earache 開頭發母音,所以前面用 an。" },
+    { topic: "主詞動詞一致", sentence: "My son ___ a cough.", choices: ["have", "has", "having", "is have"], answer: "has", explain: "my son 是第三人稱單數,動詞要用 has。" },
+    { topic: "主詞動詞一致", sentence: "When I run, my heart ___ faster.", choices: ["beat", "beats", "beating", "is beat"], answer: "beats", explain: "heart(it)是第三人稱單數,動詞加 -s。" },
+    { topic: "動名詞(V-ing)的用法", sentence: "I love to ___ in the pool every summer.", choices: ["go swim", "go to swim", "go swimming", "going swim"], answer: "go swimming", explain: "「go + 動詞-ing」表示從事某項活動,例如 go swimming、go shopping。" },
+    { topic: "動名詞(V-ing)的用法", sentence: "___ a taxi late at night is very expensive.", choices: ["Take", "To take", "Taking", "Took"], answer: "Taking", explain: "動名詞(V-ing)可以放在句首當主詞。" },
+    { topic: "-ing / -ed 形容詞", sentence: "After a long day at work, I felt very ___.", choices: ["tiring", "tired", "tire", "tires"], answer: "tired", explain: "描述人的感受用 -ed 形容詞(tired = 我感到累)。" },
+    { topic: "-ing / -ed 形容詞", sentence: "That movie was so ___ that I fell asleep.", choices: ["bored", "boring", "bore", "bores"], answer: "boring", explain: "描述造成這種感覺的事物用 -ing 形容詞(boring = 這部電影很無聊)。" },
+    { topic: "疑問句語序", sentence: "___ you do in the morning?", choices: ["What do", "When do", "What you", "When you"], answer: "What do", explain: "疑問句需要「WH字 + do/does/did + 主詞 + 原形動詞」,不能省略 do。" },
+    { topic: "疑問句語序", sentence: "___ your tooth hurt?", choices: ["Do", "Does", "Is", "Are"], answer: "Does", explain: "your tooth 是第三人稱單數,一般疑問句用 does,後面動詞用原形 hurt(不加 s)。" },
+    { topic: "常用介系詞搭配", sentence: "I stayed in a hotel ___ my last trip.", choices: ["at", "on", "in", "for"], answer: "on", explain: "固定用法是 on my trip / on my last trip。" },
+    { topic: "常用介系詞搭配", sentence: "Please close your eyes ___ five minutes.", choices: ["in", "on", "for", "during"], answer: "for", explain: "描述一段時間長度用 for + 時間長度。" },
+    { topic: "常用介系詞搭配", sentence: "Don't pass it ___ other people.", choices: ["other", "for", "with", "to"], answer: "to", explain: "pass something to someone 是固定搭配的介系詞 to。" },
+    { topic: "比較級", sentence: "Japan's bus is ___ than Taiwan's.", choices: ["short", "shorter", "more short", "shortest"], answer: "shorter", explain: "單音節形容詞的比較級字尾加 -er。" }
   ];
 
   var gQuiz = { lastIndex: -1, current: null, locked: false };
