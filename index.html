@@ -1,0 +1,1510 @@
+<title>單字配對卡</title>
+<style>
+  :root{
+    --bg:#EEF1F6;
+    --surface:#FFFFFF;
+    --surface-2:#F5F7FA;
+    --ink:#16202A;
+    --ink-soft:#5C6B7A;
+    --ink-faint:#8B96A3;
+    --accent:#2F6FED;
+    --accent-ink:#12326B;
+    --accent-warm:#FF7A45;
+    --success:#1E9E75;
+    --success-bg:#DFF6EC;
+    --danger:#E5484D;
+    --danger-bg:#FCE4E4;
+    --border:#D7DEE8;
+    --slot-dash:#B9C3D1;
+    --tag-1-bg:#E4ECFF; --tag-1-ink:#22408F; --tag-1-bd:#B9CBFA;
+    --tag-2-bg:#DFF3EE; --tag-2-ink:#166A55; --tag-2-bd:#AFE1D3;
+    --tag-3-bg:#FFE8DC; --tag-3-ink:#96401A; --tag-3-bd:#FCC7AA;
+    --tag-4-bg:#F1E6FB; --tag-4-ink:#5A2E8A; --tag-4-bd:#D9C2F2;
+    --tag-5-bg:#FFF3D6; --tag-5-ink:#8A5A00; --tag-5-bd:#F5D68A;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#10151C;
+      --surface:#1B232D;
+      --surface-2:#212B36;
+      --ink:#E7ECF2;
+      --ink-soft:#9AA7B4;
+      --ink-faint:#6C7885;
+      --accent:#5B9CFF;
+      --accent-ink:#DCE9FF;
+      --accent-warm:#FF9466;
+      --success:#3FCB9B;
+      --success-bg:#123529;
+      --danger:#FF6B6F;
+      --danger-bg:#3A1B1C;
+      --border:#2A3542;
+      --slot-dash:#3A4656;
+      --tag-1-bg:#1E2C4A; --tag-1-ink:#AFC6FF; --tag-1-bd:#2E4576;
+      --tag-2-bg:#123A32; --tag-2-ink:#8DE0C6; --tag-2-bd:#1D5A4D;
+      --tag-3-bg:#3E2618; --tag-3-ink:#FFC29B; --tag-3-bd:#5C3B24;
+      --tag-4-bg:#2C2140; --tag-4-ink:#D6B8F7; --tag-4-bd:#453362;
+      --tag-5-bg:#3A2E0E; --tag-5-ink:#F0CD73; --tag-5-bd:#5A4A17;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#10151C;
+    --surface:#1B232D;
+    --surface-2:#212B36;
+    --ink:#E7ECF2;
+    --ink-soft:#9AA7B4;
+    --ink-faint:#6C7885;
+    --accent:#5B9CFF;
+    --accent-ink:#DCE9FF;
+    --accent-warm:#FF9466;
+    --success:#3FCB9B;
+    --success-bg:#123529;
+    --danger:#FF6B6F;
+    --danger-bg:#3A1B1C;
+    --border:#2A3542;
+    --slot-dash:#3A4656;
+    --tag-1-bg:#1E2C4A; --tag-1-ink:#AFC6FF; --tag-1-bd:#2E4576;
+    --tag-2-bg:#123A32; --tag-2-ink:#8DE0C6; --tag-2-bd:#1D5A4D;
+    --tag-3-bg:#3E2618; --tag-3-ink:#FFC29B; --tag-3-bd:#5C3B24;
+    --tag-4-bg:#2C2140; --tag-4-ink:#D6B8F7; --tag-4-bd:#453362;
+    --tag-5-bg:#3A2E0E; --tag-5-ink:#F0CD73; --tag-5-bd:#5A4A17;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+    padding-inline: 16px;
+    padding-block: 20px;
+  }
+  .display{ font-family: "Baloo 2", "Noto Sans TC", system-ui, sans-serif; }
+
+  .wrap{
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  header{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap: wrap;
+  }
+  .title-block h1{
+    margin:0;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+  .title-block p{
+    margin: 4px 0 0;
+    color: var(--ink-soft);
+    font-size: 14px;
+  }
+  .stats{
+    display:flex;
+    gap:10px;
+    flex-wrap: wrap;
+  }
+  .stat-pill{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    display:flex;
+    align-items:center;
+    gap:6px;
+    white-space: nowrap;
+  }
+  .stat-pill b{
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+    font-size: 14px;
+  }
+
+  .tabs{
+    display:flex;
+    gap: 6px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 4px;
+    width: fit-content;
+  }
+  .tab-btn{
+    border: none;
+    background: transparent;
+    color: var(--ink-soft);
+    font-family: "Baloo 2", "Noto Sans TC", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 8px 14px;
+    border-radius: 9px;
+    cursor: pointer;
+  }
+  .tab-btn:hover{ color: var(--ink); }
+  .tab-btn.active{
+    background: var(--surface);
+    color: var(--accent);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  }
+  .tab-btn:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .board{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 22px;
+    display:flex;
+    flex-direction: column;
+    gap: 22px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .book-header{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .book-header p{
+    margin: 0;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .clear-btn{
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--ink-soft);
+    border-radius: 10px;
+    padding: 7px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .clear-btn:hover{ color: var(--danger); border-color: var(--danger); }
+  .clear-btn.confirming{
+    color: var(--surface);
+    background: var(--danger);
+    border-color: var(--danger);
+  }
+  .clear-btn:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .book-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+  }
+  .wb-card{
+    position: relative;
+    border: 1.5px solid var(--border);
+    background: var(--surface-2);
+    border-radius: 12px;
+    padding: 14px 12px;
+    min-height: 76px;
+    cursor: pointer;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  .wb-card:hover{ border-color: var(--ink-faint); }
+  .wb-card .wb-en{
+    font-family: "Baloo 2", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--ink);
+    display:flex;
+    align-items:center;
+    gap: 4px;
+  }
+  .wb-card .wb-en .speak-btn{ font-size: 13px; }
+  .wb-card .wb-zh{
+    font-size: 14px;
+    color: var(--accent);
+    font-weight: 600;
+    min-height: 1.2em;
+  }
+  .wb-card .wb-hint{
+    font-size: 11px;
+    color: var(--ink-faint);
+  }
+  .wb-card .wb-count{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 11px;
+    color: var(--ink-faint);
+    font-variant-numeric: tabular-nums;
+  }
+  .wb-card .wb-del{
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    border: none;
+    background: transparent;
+    color: var(--ink-faint);
+    font-size: 13px;
+    line-height: 20px;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity .15s ease, background .15s ease, color .15s ease;
+  }
+  .wb-card:hover .wb-del,
+  .wb-card .wb-del:focus-visible{ opacity: 1; }
+  .wb-card .wb-del:hover{ background: var(--danger-bg); color: var(--danger); }
+  .wb-card.revealed{
+    border-color: var(--accent);
+    background: var(--surface);
+  }
+  .book-empty{
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 14px;
+    padding: 30px 10px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .book-empty button{
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--accent);
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .battle-top{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .stage-badge{
+    font-family: "Baloo 2", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--accent-warm);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 14px;
+  }
+  .restart-btn{
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--ink-soft);
+    border-radius: 10px;
+    padding: 7px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .restart-btn:hover{ color: var(--ink); border-color: var(--ink-faint); }
+
+  .fighters{
+    display:grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 16px;
+  }
+  @media (max-width: 560px){
+    .fighters{ grid-template-columns: 1fr 1fr; }
+    .fighters .vs{ display:none; }
+  }
+  .fighter{
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px;
+    text-align: center;
+    position: relative;
+    overflow: visible;
+  }
+  .fighter .emoji{
+    font-size: 40px;
+    line-height: 1;
+    display:inline-block;
+  }
+  .fighter.hit .emoji{ animation: hitshake .3s ease; }
+  @keyframes hitshake{
+    20%,80%{ transform: translateX(-4px) rotate(-3deg); }
+    40%{ transform: translateX(5px) rotate(3deg); }
+    60%{ transform: translateX(-5px) rotate(-2deg); }
+  }
+  .fighter .fname{
+    font-family: "Baloo 2", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+  .hp-track{
+    height: 10px;
+    border-radius: 999px;
+    background: var(--border);
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  .hp-fill{
+    height: 100%;
+    border-radius: 999px;
+    transition: width .3s ease;
+  }
+  .hp-fill.player{ background: linear-gradient(90deg, var(--accent), var(--success)); }
+  .hp-fill.monster{ background: linear-gradient(90deg, var(--accent-warm), var(--danger)); }
+  .hp-text{
+    font-size: 11px;
+    color: var(--ink-faint);
+    margin-top: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .vs{
+    font-family: "Baloo 2", system-ui, sans-serif;
+    font-weight: 700;
+    color: var(--ink-faint);
+    font-size: 15px;
+  }
+  .dmg-pop{
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Baloo 2", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    pointer-events: none;
+    animation: dmgfloat .7s ease forwards;
+  }
+  .dmg-pop.player{ color: var(--danger); }
+  .dmg-pop.monster{ color: var(--accent-warm); }
+  @keyframes dmgfloat{
+    0%{ opacity: 1; transform: translate(-50%, 0); }
+    100%{ opacity: 0; transform: translate(-50%, -24px); }
+  }
+
+  .quiz-box{
+    text-align: center;
+    display:flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .quiz-label{
+    font-size: 12px;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .quiz-word-row{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 8px;
+  }
+  .quiz-word{
+    font-family: "Baloo 2", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    color: var(--ink);
+  }
+  .quiz-word-row .speak-btn{
+    font-size: 22px;
+    opacity: 0.7;
+  }
+  .choice-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media (max-width: 480px){
+    .choice-grid{ grid-template-columns: 1fr; }
+  }
+  .choice-btn{
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    color: var(--ink);
+    border-radius: 12px;
+    padding: 14px 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: "Noto Sans TC", system-ui, sans-serif;
+    transition: border-color .15s ease, background .15s ease, opacity .15s ease;
+  }
+  .choice-btn:hover:not(:disabled){ border-color: var(--accent); }
+  .choice-btn:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
+  .choice-btn:disabled{ cursor: default; }
+  .choice-btn.correct{ border-color: var(--success); background: var(--success-bg); color: var(--success); }
+  .choice-btn.wrong{ border-color: var(--danger); background: var(--danger-bg); color: var(--danger); }
+  .choice-btn.dim{ opacity: 0.5; }
+
+  .battle-over{
+    text-align: center;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+  }
+  .battle-over .bo-title{
+    font-family: "Baloo 2", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--danger);
+  }
+  .battle-over p{ margin: 0; color: var(--ink-soft); font-size: 14px; }
+  .battle-over button{
+    background: var(--accent);
+    color: var(--surface);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: "Baloo 2", system-ui, sans-serif;
+  }
+
+  .board-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .progress-track{
+    flex:1;
+    min-width: 140px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    overflow: hidden;
+  }
+  .progress-fill{
+    height:100%;
+    background: linear-gradient(90deg, var(--accent), var(--success));
+    width: 0%;
+    transition: width .35s ease;
+    border-radius: 999px;
+  }
+  .progress-label{
+    font-size: 13px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .new-set-btn{
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--ink-soft);
+    border-radius: 10px;
+    padding: 7px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .new-set-btn:hover{ color: var(--ink); border-color: var(--ink-faint); }
+  .new-set-btn:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .columns{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    align-items: start;
+  }
+  @media (max-width: 620px){
+    .columns{ grid-template-columns: 1fr; }
+  }
+
+  .col-label{
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .tag-list{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    min-height: 44px;
+  }
+
+  .tag{
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    padding: 10px 12px 10px 16px;
+    border-radius: 12px;
+    border: 1.5px solid transparent;
+    font-family: "Baloo 2", system-ui, sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: grab;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: box-shadow .15s ease, transform .15s ease, opacity .2s ease;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+  }
+  .speak-btn{
+    border: none;
+    background: transparent;
+    color: inherit;
+    opacity: 0.6;
+    font-size: 14px;
+    line-height: 1;
+    padding: 3px;
+    border-radius: 999px;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .speak-btn:hover{ opacity: 1; }
+  .speak-btn:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; opacity: 1; }
+  .tag .speak-btn{ font-size: 13px; }
+  .tag:active{ cursor: grabbing; }
+  .tag:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
+  .tag[data-c="1"]{ background: var(--tag-1-bg); color: var(--tag-1-ink); border-color: var(--tag-1-bd); }
+  .tag[data-c="2"]{ background: var(--tag-2-bg); color: var(--tag-2-ink); border-color: var(--tag-2-bd); }
+  .tag[data-c="3"]{ background: var(--tag-3-bg); color: var(--tag-3-ink); border-color: var(--tag-3-bd); }
+  .tag[data-c="4"]{ background: var(--tag-4-bg); color: var(--tag-4-ink); border-color: var(--tag-4-bd); }
+  .tag[data-c="5"]{ background: var(--tag-5-bg); color: var(--tag-5-ink); border-color: var(--tag-5-bd); }
+
+  .tag.selected{
+    box-shadow: 0 0 0 3px var(--accent-warm);
+    transform: translateY(-2px);
+  }
+  .tag.dragging{
+    position: fixed;
+    z-index: 50;
+    pointer-events: none;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+    transform: scale(1.05) rotate(-2deg);
+  }
+  .tag.matched{
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+  }
+  .tag.wrong-shake{
+    animation: shake .38s ease;
+  }
+  @keyframes shake{
+    10%,90%{ transform: translateX(-1px); }
+    20%,80%{ transform: translateX(3px); }
+    30%,50%,70%{ transform: translateX(-6px); }
+    40%,60%{ transform: translateX(6px); }
+  }
+
+  .slot-list{
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .slot{
+    min-height: 44px;
+    border-radius: 12px;
+    border: 1.5px dashed var(--slot-dash);
+    background: var(--surface-2);
+    display:flex;
+    align-items:center;
+    padding: 10px 14px;
+    font-size: 15px;
+    color: var(--ink-soft);
+    position: relative;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  .slot.hover-target{
+    border-color: var(--accent);
+    background: var(--surface);
+  }
+  .slot.wrong-flash{
+    border-color: var(--danger);
+    background: var(--danger-bg);
+  }
+  .slot.filled{
+    border-style: solid;
+    justify-content: flex-start;
+  }
+  .slot .placed-tag{
+    font-family: "Baloo 2", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    display:flex;
+    align-items:center;
+    gap: 8px;
+  }
+  .slot .check{
+    color: var(--success);
+    font-size: 15px;
+  }
+
+  .banner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 12px;
+    background: var(--success-bg);
+    border: 1px solid var(--success);
+    color: var(--success);
+    border-radius: 14px;
+    padding: 14px 18px;
+    font-weight: 600;
+    flex-wrap: wrap;
+  }
+  .banner button{
+    background: var(--success);
+    color: var(--surface);
+    border: none;
+    border-radius: 10px;
+    padding: 9px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: "Baloo 2", system-ui, sans-serif;
+  }
+  .banner button:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .hint{
+    font-size: 13px;
+    color: var(--ink-faint);
+    text-align: center;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .tag, .slot, .progress-fill, .banner { transition: none !important; animation: none !important; }
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="title-block">
+      <h1 class="display">🔤 單字配對卡</h1>
+      <p>把英文單字拖到正確的中文意思上,答對就會鎖住,答錯會彈回去,慢慢練習不用急。</p>
+    </div>
+    <div class="stats">
+      <div class="stat-pill">已完成組數 <b id="roundCount">0</b></div>
+      <div class="stat-pill">已學單字 <b id="wordCount">0</b></div>
+    </div>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button class="tab-btn active" id="tabMatchBtn" type="button" role="tab" aria-selected="true">🧩 配對練習</button>
+    <button class="tab-btn" id="tabBattleBtn" type="button" role="tab" aria-selected="false">⚔️ 戰鬥模式</button>
+    <button class="tab-btn" id="tabBookBtn" type="button" role="tab" aria-selected="false">📒 生字本 <span id="bookTabCount">(0)</span></button>
+  </div>
+
+  <div id="panelMatch">
+    <div class="board">
+      <div class="board-header">
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-label" id="progressLabel">0 / 6 配對成功</div>
+        <button class="new-set-btn" id="shuffleBtn" type="button">🔀 換一組</button>
+      </div>
+
+      <div class="columns">
+        <div>
+          <div class="col-label">English</div>
+          <div class="tag-list" id="tagList"></div>
+        </div>
+        <div>
+          <div class="col-label">中文意思</div>
+          <div class="slot-list" id="slotList"></div>
+        </div>
+      </div>
+
+      <div class="banner" id="banner" hidden>
+        <span>🎉 太棒了,這組全部配對成功!</span>
+        <button id="nextBtn" type="button">下一組 →</button>
+      </div>
+    </div>
+    <p class="hint">滑鼠或手指拖曳單字到正確格子;也可以先點選單字,再點選要配對的格子。</p>
+  </div>
+
+  <div id="panelBattle" hidden>
+    <div class="board">
+      <div class="battle-top">
+        <span class="stage-badge" id="stageBadge">第 1 關</span>
+        <button class="restart-btn" id="restartBattleBtn" type="button">🔄 重新開始</button>
+      </div>
+
+      <div class="fighters">
+        <div class="fighter" id="playerFighter">
+          <span class="emoji">🧑‍🎓</span>
+          <div class="fname">你</div>
+          <div class="hp-track"><div class="hp-fill player" id="playerHpFill"></div></div>
+          <div class="hp-text" id="playerHpText">100 / 100</div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="fighter" id="monsterFighter">
+          <span class="emoji" id="monsterEmoji">🟢</span>
+          <div class="fname" id="monsterName">史萊姆</div>
+          <div class="hp-track"><div class="hp-fill monster" id="monsterHpFill"></div></div>
+          <div class="hp-text" id="monsterHpText">60 / 60</div>
+        </div>
+      </div>
+
+      <div id="battleActive">
+        <div class="quiz-box">
+          <div class="quiz-label">這個單字的中文意思是?</div>
+          <div class="quiz-word-row">
+            <span class="quiz-word" id="quizWord">word</span>
+            <button class="speak-btn" id="quizSpeakBtn" type="button" aria-label="播放發音">🔊</button>
+          </div>
+        </div>
+        <div class="choice-grid" id="choiceGrid"></div>
+      </div>
+
+      <div class="battle-over" id="battleOver" hidden>
+        <div class="bo-title">💥 你被擊敗了</div>
+        <p id="battleOverStat">這次撐到了第 1 關。</p>
+        <button id="battleRetryBtn" type="button">重新挑戰 →</button>
+      </div>
+    </div>
+    <p class="hint">答對會攻擊怪物,答錯則會扣自己的血量,血量歸零就會被擊敗——小心作答!</p>
+  </div>
+
+  <div id="panelBook" hidden>
+    <div class="board">
+      <div class="book-header">
+        <p>配對成功過的單字都會收集在這裡,點一下卡片查看中文意思,再點一下收起來。</p>
+        <button class="clear-btn" id="clearBookBtn" type="button">清空生字本</button>
+      </div>
+      <div class="book-grid" id="bookGrid"></div>
+      <div class="book-empty" id="bookEmpty" hidden>
+        <span>還沒有收集到單字,先去配對練習學幾個吧!</span>
+        <button id="goMatchBtn" type="button">前往配對練習 →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var BANK = [
+    ["apple","蘋果"],["banana","香蕉"],["orange","橘子"],["grape","葡萄"],["watermelon","西瓜"],
+    ["dog","狗"],["cat","貓"],["bird","鳥"],["fish","魚"],["rabbit","兔子"],["elephant","大象"],["lion","獅子"],
+    ["book","書"],["pen","筆"],["pencil","鉛筆"],["bag","背包"],["chair","椅子"],["table","桌子"],["door","門"],["window","窗戶"],["bed","床"],
+    ["water","水"],["milk","牛奶"],["coffee","咖啡"],["tea","茶"],["bread","麵包"],["rice","飯"],["egg","雞蛋"],
+    ["breakfast","早餐"],["lunch","午餐"],["dinner","晚餐"],
+    ["happy","快樂"],["sad","難過"],["angry","生氣"],["tired","疲累"],["excited","興奮"],
+    ["big","大"],["small","小"],["fast","快"],["slow","慢"],["hot","熱"],["cold","冷"],["easy","簡單"],["difficult","困難"],["near","近"],["far","遠"],
+    ["teacher","老師"],["student","學生"],["friend","朋友"],["family","家人"],["mother","媽媽"],["father","爸爸"],["sister","姊妹"],["brother","兄弟"],
+    ["morning","早上"],["afternoon","下午"],["evening","傍晚"],["night","晚上"],
+    ["today","今天"],["tomorrow","明天"],["yesterday","昨天"],["week","星期"],["weekend","週末"],["holiday","假期"],["birthday","生日"],
+    ["red","紅色"],["blue","藍色"],["green","綠色"],["yellow","黃色"],["black","黑色"],["white","白色"],
+    ["rain","下雨"],["sun","太陽"],["moon","月亮"],["star","星星"],["sky","天空"],["tree","樹"],["flower","花"],["mountain","山"],["river","河流"],["sea","海"],
+    ["house","房子"],["car","汽車"],["bus","公車"],["train","火車"],["airplane","飛機"],
+    ["phone","電話"],["computer","電腦"],["music","音樂"],["movie","電影"],
+    ["sleep","睡覺"],["walk","走路"],["run","跑步"],["swim","游泳"],["jump","跳"],["read","閱讀"],["write","寫字"],["listen","聽"],["speak","說話"],
+    ["buy","買"],["sell","賣"],["open","打開"],["close","關閉"],["love","愛"],["like","喜歡"],
+    ["money","錢"],["bank","銀行"],["hospital","醫院"],["doctor","醫生"],["nurse","護士"],["police","警察"],
+    ["restaurant","餐廳"],["hotel","飯店"],["airport","機場"],["ticket","票"],["map","地圖"],["key","鑰匙"],
+    ["shoes","鞋子"],["shirt","衣服"],["hat","帽子"],["glasses","眼鏡"],["watch","手錶"],["gift","禮物"]
+  ];
+
+  var ROUND_SIZE = 6;
+  var state = {
+    deck: [],
+    deckPos: 0,
+    round: [],
+    matchedIds: {},
+    selectedTagEl: null,
+    roundCount: 0,
+    wordCount: 0,
+    learned: {}
+  };
+
+  var tagListEl = document.getElementById("tagList");
+  var slotListEl = document.getElementById("slotList");
+  var bannerEl = document.getElementById("banner");
+  var progressFillEl = document.getElementById("progressFill");
+  var progressLabelEl = document.getElementById("progressLabel");
+  var roundCountEl = document.getElementById("roundCount");
+  var wordCountEl = document.getElementById("wordCount");
+  var tabMatchBtn = document.getElementById("tabMatchBtn");
+  var tabBookBtn = document.getElementById("tabBookBtn");
+  var tabBattleBtn = document.getElementById("tabBattleBtn");
+  var bookTabCountEl = document.getElementById("bookTabCount");
+  var panelMatchEl = document.getElementById("panelMatch");
+  var panelBookEl = document.getElementById("panelBook");
+  var panelBattleEl = document.getElementById("panelBattle");
+  var bookGridEl = document.getElementById("bookGrid");
+  var bookEmptyEl = document.getElementById("bookEmpty");
+  var clearBookBtn = document.getElementById("clearBookBtn");
+  var clearConfirmTimer = null;
+
+  var MONSTERS = [
+    { emoji: "🟢", name: "史萊姆" },
+    { emoji: "🦇", name: "蝙蝠" },
+    { emoji: "🐺", name: "野狼" },
+    { emoji: "🕷️", name: "巨蛛" },
+    { emoji: "👹", name: "哥布林" },
+    { emoji: "💀", name: "骷髏戰士" },
+    { emoji: "🐍", name: "巨蟒" },
+    { emoji: "🐉", name: "小龍" },
+    { emoji: "🐲", name: "巨龍王" }
+  ];
+  var PLAYER_MAX_HP = 100;
+  var battle = {
+    stage: 1,
+    playerHp: PLAYER_MAX_HP,
+    monsterHp: 60,
+    monsterMaxHp: 60,
+    lastEnIndex: -1,
+    question: null,
+    locked: false,
+    bestStage: 1
+  };
+
+  var stageBadgeEl = document.getElementById("stageBadge");
+  var playerHpFillEl = document.getElementById("playerHpFill");
+  var playerHpTextEl = document.getElementById("playerHpText");
+  var monsterHpFillEl = document.getElementById("monsterHpFill");
+  var monsterHpTextEl = document.getElementById("monsterHpText");
+  var monsterEmojiEl = document.getElementById("monsterEmoji");
+  var monsterNameEl = document.getElementById("monsterName");
+  var playerFighterEl = document.getElementById("playerFighter");
+  var monsterFighterEl = document.getElementById("monsterFighter");
+  var quizWordEl = document.getElementById("quizWord");
+  var choiceGridEl = document.getElementById("choiceGrid");
+  var battleActiveEl = document.getElementById("battleActive");
+  var battleOverEl = document.getElementById("battleOver");
+  var battleOverStatEl = document.getElementById("battleOverStat");
+  var quizSpeakBtn = document.getElementById("quizSpeakBtn");
+
+  var hasTTS = (function(){
+    try { return "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined"; }
+    catch(e) { return false; }
+  })();
+
+  function speak(text){
+    if (!hasTTS) return;
+    try{
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US";
+      u.rate = 0.9;
+      window.speechSynthesis.speak(u);
+    } catch(e) {}
+  }
+
+  function makeSpeakBtn(text, extraClass){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "speak-btn" + (extraClass ? " " + extraClass : "");
+    b.setAttribute("aria-label", "播放 " + text + " 的發音");
+    b.textContent = "🔊";
+    b.addEventListener("pointerdown", function(e){ e.stopPropagation(); });
+    b.addEventListener("click", function(e){
+      e.stopPropagation();
+      speak(text);
+    });
+    return b;
+  }
+
+  function shuffle(arr){
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function loadStats(){
+    try{
+      var raw = localStorage.getItem("wordMatchStats");
+      if (raw){
+        var s = JSON.parse(raw);
+        state.roundCount = s.roundCount || 0;
+        state.wordCount = s.wordCount || 0;
+      }
+    } catch(e) {}
+    try{
+      var rawBook = localStorage.getItem("wordMatchBook");
+      if (rawBook){
+        state.learned = JSON.parse(rawBook) || {};
+      }
+    } catch(e) {}
+    try{
+      var rawBest = localStorage.getItem("wordMatchBattleBest");
+      if (rawBest){
+        battle.bestStage = parseInt(rawBest, 10) || 1;
+      }
+    } catch(e) {}
+    roundCountEl.textContent = state.roundCount;
+    wordCountEl.textContent = state.wordCount;
+    renderBook();
+  }
+
+  function registerCorrectAnswer(en, zh){
+    state.wordCount += 1;
+    wordCountEl.textContent = state.wordCount;
+    saveStats();
+    learnWord(en, zh);
+  }
+
+  function saveBattleBest(){
+    try{ localStorage.setItem("wordMatchBattleBest", String(battle.bestStage)); } catch(e) {}
+  }
+  function saveStats(){
+    try{
+      localStorage.setItem("wordMatchStats", JSON.stringify({
+        roundCount: state.roundCount,
+        wordCount: state.wordCount
+      }));
+    } catch(e) {}
+  }
+  function saveBook(){
+    try{
+      localStorage.setItem("wordMatchBook", JSON.stringify(state.learned));
+    } catch(e) {}
+  }
+
+  function renderBook(){
+    var words = Object.keys(state.learned).map(function(en){ return state.learned[en]; });
+    bookTabCountEl.textContent = "(" + words.length + ")";
+    bookGridEl.innerHTML = "";
+    if (words.length === 0){
+      bookEmptyEl.hidden = false;
+      bookGridEl.hidden = true;
+      return;
+    }
+    bookEmptyEl.hidden = true;
+    bookGridEl.hidden = false;
+    words.sort(function(a, b){
+      if (a.count !== b.count) return a.count - b.count;
+      return b.lastAt - a.lastAt;
+    });
+    words.forEach(function(w){
+      var card = document.createElement("div");
+      card.className = "wb-card";
+      card.tabIndex = 0;
+
+      var del = document.createElement("button");
+      del.className = "wb-del";
+      del.type = "button";
+      del.setAttribute("aria-label", "從生字本移除 " + w.en);
+      del.textContent = "×";
+      del.addEventListener("click", function(e){
+        e.stopPropagation();
+        delete state.learned[w.en];
+        saveBook();
+        renderBook();
+      });
+
+      var count = document.createElement("span");
+      count.className = "wb-count";
+      count.textContent = "×" + w.count;
+
+      var en = document.createElement("div");
+      en.className = "wb-en";
+      var enLabel = document.createElement("span");
+      enLabel.textContent = w.en;
+      en.appendChild(enLabel);
+      if (hasTTS) en.appendChild(makeSpeakBtn(w.en));
+
+      var zh = document.createElement("div");
+      zh.className = "wb-zh";
+
+      var hint = document.createElement("div");
+      hint.className = "wb-hint";
+      hint.textContent = "點一下查看意思";
+
+      card.appendChild(del);
+      card.appendChild(count);
+      card.appendChild(en);
+      card.appendChild(zh);
+      card.appendChild(hint);
+
+      function toggleReveal(){
+        var revealed = card.classList.toggle("revealed");
+        zh.textContent = revealed ? w.zh : "";
+        hint.textContent = revealed ? "再點一下收起來" : "點一下查看意思";
+      }
+      card.addEventListener("click", toggleReveal);
+      card.addEventListener("keydown", function(e){
+        if (e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          toggleReveal();
+        }
+      });
+
+      bookGridEl.appendChild(card);
+    });
+  }
+
+  function learnWord(en, zh){
+    var existing = state.learned[en];
+    state.learned[en] = {
+      en: en,
+      zh: zh,
+      count: existing ? existing.count + 1 : 1,
+      lastAt: Date.now()
+    };
+    saveBook();
+    renderBook();
+  }
+
+  function showTab(name){
+    var isMatch = name === "match";
+    var isBattle = name === "battle";
+    var isBook = name === "book";
+    tabMatchBtn.classList.toggle("active", isMatch);
+    tabBattleBtn.classList.toggle("active", isBattle);
+    tabBookBtn.classList.toggle("active", isBook);
+    tabMatchBtn.setAttribute("aria-selected", String(isMatch));
+    tabBattleBtn.setAttribute("aria-selected", String(isBattle));
+    tabBookBtn.setAttribute("aria-selected", String(isBook));
+    panelMatchEl.hidden = !isMatch;
+    panelBattleEl.hidden = !isBattle;
+    panelBookEl.hidden = !isBook;
+  }
+
+  function pickQuestion(){
+    var idx;
+    do {
+      idx = Math.floor(Math.random() * BANK.length);
+    } while (BANK.length > 1 && idx === battle.lastEnIndex);
+    battle.lastEnIndex = idx;
+    var pair = BANK[idx];
+    var wrongPool = BANK.filter(function(p, i){ return i !== idx; });
+    wrongPool = shuffle(wrongPool).slice(0, 3);
+    var choices = shuffle([pair].concat(wrongPool)).map(function(p){ return p[1]; });
+    battle.question = { en: pair[0], zh: pair[1], choices: choices };
+  }
+
+  function renderMonster(){
+    var m = MONSTERS[(battle.stage - 1) % MONSTERS.length];
+    monsterEmojiEl.textContent = m.emoji;
+    monsterNameEl.textContent = m.name;
+    stageBadgeEl.textContent = "第 " + battle.stage + " 關";
+  }
+
+  function updateHpBars(){
+    var pPct = Math.max(0, battle.playerHp / PLAYER_MAX_HP * 100);
+    var mPct = Math.max(0, battle.monsterHp / battle.monsterMaxHp * 100);
+    playerHpFillEl.style.width = pPct + "%";
+    monsterHpFillEl.style.width = mPct + "%";
+    playerHpTextEl.textContent = Math.max(0, battle.playerHp) + " / " + PLAYER_MAX_HP;
+    monsterHpTextEl.textContent = Math.max(0, battle.monsterHp) + " / " + battle.monsterMaxHp;
+  }
+
+  function popDamage(fighterEl, amount, kind){
+    var pop = document.createElement("div");
+    pop.className = "dmg-pop " + kind;
+    pop.textContent = "-" + amount;
+    fighterEl.appendChild(pop);
+    fighterEl.classList.add("hit");
+    setTimeout(function(){
+      if (pop.parentNode) pop.parentNode.removeChild(pop);
+      fighterEl.classList.remove("hit");
+    }, 700);
+  }
+
+  function renderBattleQuestion(){
+    battle.locked = false;
+    quizWordEl.textContent = battle.question.en;
+    choiceGridEl.innerHTML = "";
+    battle.question.choices.forEach(function(zh){
+      var btn = document.createElement("button");
+      btn.className = "choice-btn";
+      btn.type = "button";
+      btn.textContent = zh;
+      btn.addEventListener("click", function(){ handleChoice(btn, zh); });
+      choiceGridEl.appendChild(btn);
+    });
+  }
+
+  function newMonster(){
+    battle.monsterMaxHp = 60 + (battle.stage - 1) * 12;
+    battle.monsterHp = battle.monsterMaxHp;
+    renderMonster();
+    updateHpBars();
+  }
+
+  function startBattle(){
+    battle.stage = 1;
+    battle.playerHp = PLAYER_MAX_HP;
+    battle.lastEnIndex = -1;
+    battleOverEl.hidden = true;
+    battleActiveEl.hidden = false;
+    newMonster();
+    pickQuestion();
+    renderBattleQuestion();
+  }
+
+  function nextMonster(){
+    battle.stage += 1;
+    battleActiveEl.hidden = false;
+    battleOverEl.hidden = true;
+    newMonster();
+    pickQuestion();
+    renderBattleQuestion();
+  }
+
+  function handleChoice(btn, picked){
+    if (battle.locked) return;
+    battle.locked = true;
+    var buttons = choiceGridEl.querySelectorAll(".choice-btn");
+    var correctZh = battle.question.zh;
+    var isCorrect = picked === correctZh;
+
+    buttons.forEach(function(b){
+      b.disabled = true;
+      if (b.textContent === correctZh){
+        b.classList.add("correct");
+      } else if (b === btn && !isCorrect){
+        b.classList.add("wrong");
+      } else {
+        b.classList.add("dim");
+      }
+    });
+
+    if (isCorrect){
+      registerCorrectAnswer(battle.question.en, battle.question.zh);
+      var dmg = 15 + Math.floor(Math.random() * 11);
+      battle.monsterHp -= dmg;
+      popDamage(monsterFighterEl, dmg, "monster");
+      updateHpBars();
+
+      if (battle.monsterHp <= 0){
+        if (battle.stage > battle.bestStage){
+          battle.bestStage = battle.stage;
+          saveBattleBest();
+        }
+        setTimeout(function(){ nextMonster(); }, 550);
+      } else {
+        setTimeout(function(){ pickQuestion(); renderBattleQuestion(); }, 500);
+      }
+    } else {
+      var pdmg = 10 + Math.floor(Math.random() * 11);
+      battle.playerHp -= pdmg;
+      popDamage(playerFighterEl, pdmg, "player");
+      updateHpBars();
+
+      if (battle.playerHp <= 0){
+        setTimeout(function(){
+          battleActiveEl.hidden = true;
+          battleOverEl.hidden = false;
+          battleOverStatEl.textContent = "這次撐到了第 " + battle.stage + " 關(歷史最佳:第 " + battle.bestStage + " 關)。";
+        }, 500);
+      } else {
+        setTimeout(function(){ pickQuestion(); renderBattleQuestion(); }, 500);
+      }
+    }
+  }
+
+  function refillDeckIfNeeded(){
+    if (state.deckPos + ROUND_SIZE > state.deck.length){
+      state.deck = shuffle(BANK);
+      state.deckPos = 0;
+    }
+  }
+
+  function startRound(){
+    refillDeckIfNeeded();
+    var slice = state.deck.slice(state.deckPos, state.deckPos + ROUND_SIZE);
+    state.deckPos += ROUND_SIZE;
+    state.round = slice.map(function(pair, idx){
+      return { id: "w" + idx + "_" + pair[0], en: pair[0], zh: pair[1] };
+    });
+    state.matchedIds = {};
+    state.selectedTagEl = null;
+    bannerEl.hidden = true;
+    renderRound();
+    updateProgress();
+  }
+
+  function renderRound(){
+    tagListEl.innerHTML = "";
+    slotListEl.innerHTML = "";
+
+    var tagOrder = shuffle(state.round);
+    tagOrder.forEach(function(item, i){
+      var tag = document.createElement("div");
+      tag.className = "tag";
+      tag.tabIndex = 0;
+      tag.dataset.id = item.id;
+      tag.dataset.c = String((i % 5) + 1);
+      var label = document.createElement("span");
+      label.textContent = item.en;
+      tag.appendChild(label);
+      if (hasTTS) tag.appendChild(makeSpeakBtn(item.en));
+      tagListEl.appendChild(tag);
+    });
+
+    var slotOrder = shuffle(state.round);
+    slotOrder.forEach(function(item){
+      var slot = document.createElement("div");
+      slot.className = "slot";
+      slot.dataset.answer = item.id;
+      slot.textContent = item.zh;
+      slotListEl.appendChild(slot);
+    });
+
+    attachHandlers();
+  }
+
+  function updateProgress(){
+    var total = state.round.length;
+    var done = Object.keys(state.matchedIds).length;
+    progressFillEl.style.width = (total ? (done / total * 100) : 0) + "%";
+    progressLabelEl.textContent = done + " / " + total + " 配對成功";
+    if (done === total && total > 0){
+      state.roundCount += 1;
+      roundCountEl.textContent = state.roundCount;
+      saveStats();
+      bannerEl.hidden = false;
+    }
+  }
+
+  function markMatched(tagEl, slotEl){
+    var id = tagEl.dataset.id;
+    state.matchedIds[id] = true;
+
+    var pair = state.round.filter(function(p){ return p.id === id; })[0];
+    if (pair) registerCorrectAnswer(pair.en, pair.zh);
+
+    var color = tagEl.dataset.c;
+    slotEl.classList.add("filled");
+    slotEl.innerHTML = "";
+    var placed = document.createElement("span");
+    placed.className = "placed-tag";
+    placed.dataset.c = color;
+    placed.style.color = "var(--tag-" + color + "-ink)";
+    var check = document.createElement("span");
+    check.className = "check";
+    check.textContent = "✓ ";
+    placed.appendChild(check);
+    placed.appendChild(document.createTextNode(pair ? pair.en : ""));
+    if (hasTTS && pair) placed.appendChild(makeSpeakBtn(pair.en));
+    slotEl.appendChild(placed);
+    slotEl.style.background = "var(--tag-" + color + "-bg)";
+    slotEl.style.borderColor = "var(--tag-" + color + "-bd)";
+
+    tagEl.classList.add("matched");
+    updateProgress();
+  }
+
+  function flashWrong(slotEl, tagEl){
+    slotEl.classList.add("wrong-flash");
+    tagEl.classList.add("wrong-shake");
+    setTimeout(function(){
+      slotEl.classList.remove("wrong-flash");
+      tagEl.classList.remove("wrong-shake");
+    }, 380);
+  }
+
+  function clearSelection(){
+    if (state.selectedTagEl){
+      state.selectedTagEl.classList.remove("selected");
+      state.selectedTagEl = null;
+    }
+  }
+
+  function attemptMatch(tagEl, slotEl){
+    if (tagEl.classList.contains("matched")) return;
+    if (slotEl.classList.contains("filled")) return;
+    if (slotEl.dataset.answer === tagEl.dataset.id){
+      markMatched(tagEl, slotEl);
+    } else {
+      flashWrong(slotEl, tagEl);
+    }
+  }
+
+  function attachHandlers(){
+    var tags = tagListEl.querySelectorAll(".tag");
+    var slots = slotListEl.querySelectorAll(".slot");
+
+    tags.forEach(function(tagEl){
+      var dragData = null;
+
+      tagEl.addEventListener("pointerdown", function(e){
+        if (tagEl.classList.contains("matched")) return;
+        clearSelection();
+        var rect = tagEl.getBoundingClientRect();
+        dragData = {
+          startX: e.clientX,
+          startY: e.clientY,
+          offsetX: e.clientX - rect.left,
+          offsetY: e.clientY - rect.top,
+          moved: false,
+          placeholder: null,
+          width: rect.width
+        };
+        tagEl.setPointerCapture(e.pointerId);
+      });
+
+      tagEl.addEventListener("pointermove", function(e){
+        if (!dragData) return;
+        var dx = e.clientX - dragData.startX;
+        var dy = e.clientY - dragData.startY;
+        if (!dragData.moved && Math.abs(dx) + Math.abs(dy) > 6){
+          dragData.moved = true;
+          var rect = tagEl.getBoundingClientRect();
+          var ph = document.createElement("div");
+          ph.style.width = rect.width + "px";
+          ph.style.height = rect.height + "px";
+          ph.style.flex = "0 0 auto";
+          tagEl.parentNode.insertBefore(ph, tagEl.nextSibling);
+          dragData.placeholder = ph;
+          tagEl.classList.add("dragging");
+          tagEl.style.width = rect.width + "px";
+        }
+        if (dragData.moved){
+          tagEl.style.left = (e.clientX - dragData.offsetX) + "px";
+          tagEl.style.top = (e.clientY - dragData.offsetY) + "px";
+          slots.forEach(function(s){ s.classList.remove("hover-target"); });
+          var under = document.elementFromPoint(e.clientX, e.clientY);
+          var slotUnder = under ? under.closest(".slot") : null;
+          if (slotUnder && !slotUnder.classList.contains("filled")){
+            slotUnder.classList.add("hover-target");
+          }
+        }
+      });
+
+      tagEl.addEventListener("pointerup", function(e){
+        if (!dragData) return;
+        slots.forEach(function(s){ s.classList.remove("hover-target"); });
+        if (dragData.moved){
+          tagEl.classList.remove("dragging");
+          tagEl.style.position = "";
+          tagEl.style.left = "";
+          tagEl.style.top = "";
+          tagEl.style.width = "";
+          if (dragData.placeholder && dragData.placeholder.parentNode){
+            dragData.placeholder.parentNode.removeChild(dragData.placeholder);
+          }
+          var under = document.elementFromPoint(e.clientX, e.clientY);
+          var slotUnder = under ? under.closest(".slot") : null;
+          if (slotUnder){
+            attemptMatch(tagEl, slotUnder);
+          }
+        } else {
+          if (state.selectedTagEl === tagEl){
+            clearSelection();
+          } else {
+            clearSelection();
+            state.selectedTagEl = tagEl;
+            tagEl.classList.add("selected");
+          }
+        }
+        dragData = null;
+      });
+
+      tagEl.addEventListener("pointercancel", function(){
+        if (dragData && dragData.moved){
+          tagEl.classList.remove("dragging");
+          tagEl.style.position = "";
+          tagEl.style.left = "";
+          tagEl.style.top = "";
+          tagEl.style.width = "";
+          if (dragData.placeholder && dragData.placeholder.parentNode){
+            dragData.placeholder.parentNode.removeChild(dragData.placeholder);
+          }
+        }
+        dragData = null;
+      });
+
+      tagEl.addEventListener("keydown", function(e){
+        if (e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          if (state.selectedTagEl === tagEl){
+            clearSelection();
+          } else {
+            clearSelection();
+            state.selectedTagEl = tagEl;
+            tagEl.classList.add("selected");
+          }
+        }
+      });
+    });
+
+    slots.forEach(function(slotEl){
+      slotEl.addEventListener("click", function(){
+        if (state.selectedTagEl){
+          var tagEl = state.selectedTagEl;
+          clearSelection();
+          attemptMatch(tagEl, slotEl);
+        }
+      });
+    });
+  }
+
+  document.getElementById("shuffleBtn").addEventListener("click", startRound);
+  document.getElementById("nextBtn").addEventListener("click", startRound);
+
+  tabMatchBtn.addEventListener("click", function(){ showTab("match"); });
+  tabBattleBtn.addEventListener("click", function(){ showTab("battle"); });
+  tabBookBtn.addEventListener("click", function(){ showTab("book"); });
+  document.getElementById("goMatchBtn").addEventListener("click", function(){ showTab("match"); });
+  document.getElementById("restartBattleBtn").addEventListener("click", startBattle);
+  document.getElementById("battleRetryBtn").addEventListener("click", startBattle);
+
+  if (hasTTS){
+    quizSpeakBtn.addEventListener("click", function(){
+      if (battle.question) speak(battle.question.en);
+    });
+  } else {
+    quizSpeakBtn.hidden = true;
+  }
+
+  clearBookBtn.addEventListener("click", function(){
+    if (clearBookBtn.classList.contains("confirming")){
+      clearTimeout(clearConfirmTimer);
+      clearBookBtn.classList.remove("confirming");
+      clearBookBtn.textContent = "清空生字本";
+      state.learned = {};
+      saveBook();
+      renderBook();
+    } else {
+      clearBookBtn.classList.add("confirming");
+      clearBookBtn.textContent = "確定清空?";
+      clearConfirmTimer = setTimeout(function(){
+        clearBookBtn.classList.remove("confirming");
+        clearBookBtn.textContent = "清空生字本";
+      }, 3000);
+    }
+  });
+
+  function boot(data){
+    loadStats();
+    startRound();
+    startBattle();
+  }
+
+  if (window.claude && window.claude.hot){
+    window.claude.hot.ready ? window.claude.hot.ready(boot) : boot(window.claude.hot.data || {});
+  } else {
+    boot({});
+  }
+})();
+</script>
