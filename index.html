@@ -1042,6 +1042,11 @@
       topic: "比較級",
       rule: "單音節形容詞的比較級字尾加 -er;比較的兩者要對等(例如要說 Taiwan's bus,而不是只講 Taiwan)。",
       examples: ["Japan's bus is shorter than Taiwan's.", "This bag is cheaper than that one."]
+    },
+    {
+      topic: "現在完成式(經驗)",
+      rule: "have/has + 過去分詞,用來表示從過去到現在的經驗或影響;否定用 haven't/hasn't + 過去分詞。",
+      examples: ["I have ridden a boat on this river.", "I haven't noticed it.", "I have asked my wife not to stay up late."]
     }
   ];
 
@@ -1061,7 +1066,21 @@
     { topic: "常用介系詞搭配", sentence: "I stayed in a hotel ___ my last trip.", choices: ["at", "on", "in", "for"], answer: "on", explain: "固定用法是 on my trip / on my last trip。" },
     { topic: "常用介系詞搭配", sentence: "Please close your eyes ___ five minutes.", choices: ["in", "on", "for", "during"], answer: "for", explain: "描述一段時間長度用 for + 時間長度。" },
     { topic: "常用介系詞搭配", sentence: "Don't pass it ___ other people.", choices: ["other", "for", "with", "to"], answer: "to", explain: "pass something to someone 是固定搭配的介系詞 to。" },
-    { topic: "比較級", sentence: "Japan's bus is ___ than Taiwan's.", choices: ["short", "shorter", "more short", "shortest"], answer: "shorter", explain: "單音節形容詞的比較級字尾加 -er。" }
+    { topic: "比較級", sentence: "Japan's bus is ___ than Taiwan's.", choices: ["short", "shorter", "more short", "shortest"], answer: "shorter", explain: "單音節形容詞的比較級字尾加 -er。" },
+    { topic: "過去簡單式(肯定句)", sentence: "I ___ a tram in Japan last year.", choices: ["rided", "rode", "ridden", "riding"], answer: "rode", explain: "ride 的過去式是不規則變化 rode,不是加 -ed。" },
+    { topic: "過去簡單式(肯定句)", sentence: "We ___ the car everywhere in Taiwan.", choices: ["drived", "drove", "driven", "driving"], answer: "drove", explain: "drive 的過去式是不規則變化 drove。" },
+    { topic: "現在完成式(經驗)", sentence: "I ___ a boat on this river before.", choices: ["ridden", "have ridden", "has ridden", "riding"], answer: "have ridden", explain: "表示過去到現在的經驗,用 have + 過去分詞。" },
+    { topic: "現在完成式(經驗)", sentence: "Sorry, I ___ that yet.", choices: ["don't notice", "haven't noticed", "not notice", "didn't noticing"], answer: "haven't noticed", explain: "現在完成式的否定是 haven't/hasn't + 過去分詞。" },
+    { topic: "可數名詞前的冠詞 a / an", sentence: "I have ___ cold, so I need to rest.", choices: ["a", "an", "the", "—"], answer: "a", explain: "cold(感冒)是可數名詞單數,前面要加 a。" },
+    { topic: "主詞動詞一致", sentence: "Her eyes ___ very dry today.", choices: ["is", "are", "be", "was"], answer: "are", explain: "eyes 是複數主詞,be動詞用 are,不加 -s。" },
+    { topic: "主詞動詞一致", sentence: "My son ___ better after taking medicine.", choices: ["feel", "feels", "feeling", "is feel"], answer: "feels", explain: "My son 是第三人稱單數,動詞要加 -s。" },
+    { topic: "動名詞(V-ing)的用法", sentence: "The doctor said, \"Don't go ___ today.\"", choices: ["swim", "to swim", "swimming", "to swimming"], answer: "swimming", explain: "go + 動詞-ing 表示從事某項活動,例如 go swimming。" },
+    { topic: "疑問句語序", sentence: "When did you ___ there?", choices: ["go", "went", "going", "to go"], answer: "go", explain: "did 後面要接原形動詞,不能省略主要動詞或用過去式。" },
+    { topic: "常用介系詞搭配", sentence: "In winter, we can play ___ the snow.", choices: ["in", "on", "at", "with"], answer: "in", explain: "play in the snow 是固定用法。" },
+    { topic: "常用介系詞搭配", sentence: "It is very cold ___ New York in winter.", choices: ["at", "in", "on", "for"], answer: "in", explain: "in + 城市/地方名稱,表示「在某地」。" },
+    { topic: "常用介系詞搭配", sentence: "Who did you travel ___?", choices: ["—", "with", "to", "for"], answer: "with", explain: "travel with someone,固定搭配介系詞 with。" },
+    { topic: "常用介系詞搭配", sentence: "Don't look ___ your phone right before bed.", choices: ["in", "at", "on", "to"], answer: "at", explain: "look at something,固定搭配介系詞 at。" },
+    { topic: "-ing / -ed 形容詞", sentence: "Don't touch it — the sun made it very ___.", choices: ["burn", "burned", "burning", "burns"], answer: "burning", explain: "描述正在造成的狀態用 -ing(be burning = 正在發燙)。" }
   ];
 
   var gQuiz = { lastIndex: -1, current: null, locked: false };
